@@ -1,3 +1,6 @@
+/**
+ * @description 只关心数据
+ */
 const getList = (author, keyword) => {
   // 先返回假数据
   return [
@@ -29,7 +32,23 @@ const getDetail = id => {
   };
 };
 
+const newBlog = (blogData = {}) => {
+  // blogData 应该是一个对象 包含 title content 属性
+  return {
+    id: 3 // 新建博客 插入到数据库表里的 id
+  };
+};
+
+const updateBlog = (id, blogData = {}) => {
+  // id 要更新博客的id
+  // blogData 应该是一个对象 包含 title content 属性
+  console.log("updateBlog", id, blogData);
+  return true;
+};
+
 module.exports = {
   getList,
-  getDetail
+  getDetail,
+  newBlog,
+  updateBlog
 };
