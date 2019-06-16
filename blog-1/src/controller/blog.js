@@ -14,32 +14,50 @@ const getList = (author, keyword) => {
 };
 
 const getDetail = id => {
-  // 先返回假数据
-  return {
-    id: 1,
-    title: "标题A",
-    content: "内容A",
-    createTime: 1559825615848,
-    author: "zhangsan"
-  };
+  let sql = `select * from blogs where id='${id}' `;
+  // 返回 promise
+  return exec(sql).then(rows => {
+    return rows[0];
+  });
 };
 
 const newBlog = (blogData = {}) => {
-  // blogData 应该是一个对象 包含 title content 属性
-  return {
-    id: 3 // 新建博客 插入到数据库表里的 id
-  };
+  // blogData 是一个对象 包含 title content 属性
+  const { title, content, author } = blogData;
+  const createTime = Date.now();
+
+  const sql = `insert into blogs (title,content,createtime,author) values ('${title}','${content}',${createTime},'${author}')`;
+
+  return exec(sql).then(insertData => {
+    return {
+      id: insertData.insertId
+    };
+  });
 };
 
 const updateBlog = (id, blogData = {}) => {
   // id 要更新博客的id
-  // blogData 应该是一个对象 包含 title content 属性
-  return true;
+  // blogData 是一个对象 包含 title content 属性
+  const { title, content } = blogData;
+  const sql = `
+    update blogs set title='${title}',content='${content}' where id = '${id}'
+  `;
+  return exec(sql).then(updateData => {
+    if (updateData.affectedRows > 0) {
+      return true;
+    }
+    return false;
+  });
 };
 
-const delBlog = id => {
-  // 要删除的博客 id
-  return true;
+const delBlog = (id,author) => {
+  const sql = `delete from blogs where id='${id}' and author='${author}'`;
+  return exec(sql).then(delData => {
+    if (delData.affectedRows > 0) {
+      return true;
+    }
+    return false;
+  });
 };
 
 module.exports = {

@@ -55,9 +55,11 @@ const serverHandle = (req, res) => {
     }
 
     // 处理 user 路由
-    const userDate = handleUserRouter(req, res);
-    if (userDate) {
-      res.end(JSON.stringify(userDate));
+    const userrResult = handleUserRouter(req, res);
+    if (userrResult) {
+      userrResult.then(userData => {
+        res.end(JSON.stringify(userData));
+      });
       return;
     }
 
