@@ -21,8 +21,19 @@ const handleBolgRouter = (req, res) => {
 
   // 获取博客列表
   if (method === "GET" && req.path === "/api/blog/list") {
-    const author = req.query.author || "";
+    let author = req.query.author || "";
     const keyword = req.query.keyword || "";
+
+    if (req.query.isadmin) {
+      // 管理员界面
+      const loginCheckResult = loginCheck(req);
+      if (loginCheckResult) {
+        // 登录验证
+        return loginCheckResult;
+      }
+      // 强制查询自己的博客
+      author = req.session.username;
+    }
     const result = getList(author, keyword);
     return result.then(listData => {
       return new SuccessModel(listData);
@@ -42,7 +53,7 @@ const handleBolgRouter = (req, res) => {
     const loginCheckResult = loginCheck(req);
     if (loginCheckResult) {
       // 未登录
-      return loginCheck;
+      return loginCheckResult;
     }
     req.body.author = req.session.username;
     const result = newBlog(req.body);
@@ -56,7 +67,7 @@ const handleBolgRouter = (req, res) => {
     const loginCheckResult = loginCheck(req);
     if (loginCheckResult) {
       // 未登录
-      return loginCheck;
+      return loginCheckResult;
     }
     const result = updateBlog(id, req.body);
     return result.then(val => {
@@ -73,7 +84,7 @@ const handleBolgRouter = (req, res) => {
     const loginCheckResult = loginCheck(req);
     if (loginCheckResult) {
       // 未登录
-      return loginCheck;
+      return loginCheckResult;
     }
 
     author = req.session.username;
