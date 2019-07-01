@@ -4,6 +4,9 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const session = require("express-session");
+// redis 客户端连接对象
+const redisClient = require("./db/redis");
+var RedisStore = require("connect-redis")(session);
 
 // var indexRouter = require("./routes/index");
 // var usersRouter = require("./routes/users");
@@ -21,6 +24,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, "public")));
+const sessionStore = new RedisStore({
+  client: redisClient
+});
+
 app.use(
   session({
     secret: "yuchunjiao#3306",
@@ -28,7 +35,8 @@ app.use(
       path: "/",
       httpOnly: true,
       maxAge: 24 * 60 * 60 * 1000
-    }
+    },
+    store: sessionStore
   })
 );
 
