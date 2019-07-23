@@ -1,3 +1,6 @@
+/**
+ * @description 登录接口
+ */
 const { login } = require("../controller/user");
 const { SuccessModel, ErrorModel } = require("../model/resModel");
 const { set } = require("../db/redis");

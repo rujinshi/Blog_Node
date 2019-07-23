@@ -17,11 +17,11 @@ if (ENV !== "production") {
   // 开发环境
   app.use(logger("dev"));
 } else {
+    // 线上环境 写日志
   const fileName = path.join(__dirname, "logs", "access.log");
   const writeStream = fs.createWriteStream(fileName, {
     flags: "a"
   });
-  // 线上环境
   app.use(
     logger("combined", {
       stream: writeStream
