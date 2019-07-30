@@ -2,12 +2,12 @@
 
 ## 概况
 
-本项目分别使用原生 Node.js、Express和koa2 框架开发 web Server，重点是 node 作为server 的应用，因此前端的交互以及样式没有过多的开发。
+本项目分别使用原生 Node.js、Express和koa2 框架开发 web Server，重点是 node 作为server 的应用，前后端分离，前端的交互以及样式没有过多的开发。
 
 ## 项目收益
 1.从服务端角度出发，结合客户端，对整站开发加深认识，包括且不局限于接口设计、路由设计、日志记录、登录校验、抽象复用代码与具体业务解耦。
 
-2.加深对中间件的认知，学习了中间件源码实现原理。
+2.加深对中间件的认知，从源码角度学习了它的 [实现原理](https://github.com/rujinshi/personalNotes/blob/master/%E6%80%BB%E7%BB%93%26%E5%8D%9A%E5%AE%A2/15.express%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0.md)。
 
 3.对后端相关技术（redis、nginx、mysql）有初步了解与使用。
 
@@ -25,14 +25,7 @@
 | 更新一篇博客       | /api/blog/update | POST | id             |   postData 中有更新的内容 |
 | 删除一篇博客       | /api/blog/del    | POST | id             |                           |
 
-
-
-## blog-1
-
-### 运行
-
-
-### 目录结构
+## 目录结构
 
 ```js
 ├── app.js
@@ -64,11 +57,6 @@
 └── yarn.lock
 ```
 
-## blog-express
-
-
-
-## blog-koa
 
 
 
